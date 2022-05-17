@@ -1,8 +1,15 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
+import { useState } from 'react';
 
 export default function Home() {
+  const [target, setTarget] = useState('');
+
+  const rephrase = (e) => {
+    e.preventDefault();
+    console.log(target);
+  };
   return (
     <div className={styles.container}>
       <Head>
@@ -15,8 +22,21 @@ export default function Home() {
         <h1 className={styles.title}>GPT-3 Contell Dictionary</h1>
 
         <p className={styles.description}>Let an AI rephrase you.</p>
-
-        <div className={styles.grid}>
+        <div>
+          <form>
+            <input
+              type="text"
+              name="target"
+              id="target"
+              value={target}
+              onChange={(e) => setTarget(e.target.value)}
+            />
+            <button type="submit" onClick={rephrase}>
+              rephrase!
+            </button>
+          </form>
+        </div>
+        {/* <div className={styles.grid}>
           <a href="https://nextjs.org/docs" className={styles.card}>
             <h2>Documentation &rarr;</h2>
             <p>Find in-depth information about Next.js features and API.</p>
@@ -44,7 +64,7 @@ export default function Home() {
               Instantly deploy your Next.js site to a public URL with Vercel.
             </p>
           </a>
-        </div>
+        </div> */}
       </main>
 
       <footer className={styles.footer}>
