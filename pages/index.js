@@ -1,15 +1,55 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-export default function Home() {
+// this runs in the server
+// export const getStaticProps = async () => {
+//   const res = await fetch('https://jsonplaceholder.typicode.com/users');
+//   const data = await res.json();
+
+//   return {
+//     props: { fetchedData: data },
+//   };
+// };
+export const getStaticProps = async () => {
+  const data = {
+    prompt: 'Write a poem about a dog wearing skis',
+    temperature: 0.5,
+    max_tokens: 64,
+    top_p: 1.0,
+    frequency_penalty: 0.0,
+    presence_penalty: 0.0,
+  };
+
+  const res = await fetch(
+    'https://api.openai.com/v1/engines/text-curie-001/completions',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${process.env.SECRET_KEY}`, //${process.env.SECRET_KEY}
+      },
+      body: JSON.stringify(data),
+    }
+  );
+  const response = await res.json();
+  return {
+    props: { fetchedData: response },
+  };
+};
+
+export default function Home({ fetchedData }) {
   const [target, setTarget] = useState('');
 
   const rephrase = (e) => {
     e.preventDefault();
-    console.log(target);
+    console.log(fetchedData);
   };
+
+  // useEffect(() => {
+  //   console.log(process.env.GREETING);
+  // });
   return (
     <div className={styles.container}>
       <Head>
