@@ -3,15 +3,10 @@ import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 import { useState, useEffect } from 'react';
 
-// export default function Home({ fetchedData }) {
 export default function Home() {
   const [target, setTarget] = useState('');
+  const [entries, setEntries] = useState([]);
   const SECRET_KEY = process.env.NEXT_PUBLIC_SECRET_KEY;
-
-  // const rephrase = (e) => {
-  //   e.preventDefault();
-  //   console.log(fetchedData.choices[0].text);
-  // };
 
   const rephrase = async (e) => {
     e.preventDefault();
@@ -23,7 +18,6 @@ export default function Home() {
       frequency_penalty: 0.0,
       presence_penalty: 0.0,
     };
-    console.log(data);
 
     const res = await fetch(
       'https://api.openai.com/v1/engines/text-curie-001/completions',
@@ -37,10 +31,11 @@ export default function Home() {
       }
     );
     const response = await res.json();
-    console.log(response);
-    return {
-      props: { fetchedData: response },
-    };
+
+    setEntries([
+      ...entries,
+      { initialEntry: data.prompt, reply: response.choices[0].text },
+    ]);
   };
 
   return (
@@ -69,35 +64,16 @@ export default function Home() {
             </button>
           </form>
         </div>
-        {/* <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div> */}
+        <div className={styles.grid}>
+          {entries.map((entry, index) => {
+            return (
+              <div className={styles.card} key={index}>
+                <h3>{entry.initialEntry}</h3>
+                <p>{entry.reply}</p>
+              </div>
+            );
+          })}
+        </div>
       </main>
 
       <footer className={styles.footer}>
@@ -113,30 +89,3 @@ export default function Home() {
     </div>
   );
 }
-
-// export const getStaticProps = async () => {
-//   const data = {
-//     prompt: 'Write a poem about a dog wearing skis',
-//     temperature: 0.5,
-//     max_tokens: 64,
-//     top_p: 1.0,
-//     frequency_penalty: 0.0,
-//     presence_penalty: 0.0,
-//   };
-
-//   const res = await fetch(
-//     'https://api.openai.com/v1/engines/text-curie-001/completions',
-//     {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//         Authorization: `Bearer ${process.env.SECRET_KEY}`,
-//       },
-//       body: JSON.stringify(data),
-//     }
-//   );
-//   const response = await res.json();
-//   return {
-//     props: { fetchedData: response },
-//   };
-// };
