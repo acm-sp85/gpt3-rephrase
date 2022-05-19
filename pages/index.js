@@ -18,6 +18,7 @@ export default function Home() {
 
   const rephrase = async (e) => {
     e.preventDefault();
+    setTarget('');
     const data = {
       prompt: target,
       temperature: 0.5,
