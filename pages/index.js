@@ -61,10 +61,10 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>GPT-3 Contell</h1>
+        <h3 className={styles.title}>GPT-3 Contell</h3>
 
         <p className={styles.description}>Talk to an AI</p>
-        <div>
+        <>
           <form>
             <input
               type="text"
@@ -77,14 +77,14 @@ export default function Home() {
               Say it!
             </button>
           </form>
-          {entries.length >= 1 ? (
+          {entries.length > 0 ? (
             <div style={{ textAlign: 'center', marginTop: '15px' }}>
               <button onClick={clearResults}>Clear Results</button>
             </div>
           ) : (
             <></>
           )}
-        </div>
+        </>
         <ul className={styles.grid}>
           {entries.map((entry, index) => {
             return (
