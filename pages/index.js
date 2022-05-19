@@ -46,6 +46,11 @@ export default function Home() {
     ]);
   };
 
+  const clearResults = () => {
+    localStorage.clear();
+    setEntries([]);
+  };
+
   return (
     <div className={styles.container}>
       <Head>
@@ -71,6 +76,9 @@ export default function Home() {
               Say it!
             </button>
           </form>
+          <div style={{ textAlign: 'center', marginTop: '15px' }}>
+            <button onClick={clearResults}>Clear Results</button>
+          </div>
         </div>
         <ul className={styles.grid}>
           {entries.map((entry, index) => {
