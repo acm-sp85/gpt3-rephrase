@@ -4,6 +4,7 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  background-color: rgb(149, 186, 208);
 }
 
 a {
@@ -13,4 +14,26 @@ a {
 
 * {
   box-sizing: border-box;
+  color: rgb(56, 56, 56);
+}
+button {
+  color: rgb(56, 56, 56);
+  font: bold 84% 'trebuchet ms', helvetica, sans-serif;
+  background-color: rgba(255, 238, 221, 0);
+  border: 1px solid;
+  border-color: rgb(56, 56, 56);
+  border-radius: 3px;
+}
+button:hover {
+  background-color: rgb(127, 171, 198);
+  color: rgba(255, 255, 255, 0.675);
+}
+
+input {
+  background-color: rgb(127, 171, 198);
+  outline: none;
+  outline-width: 1;
+  border: 0;
+  border-radius: 3px;
+  margin-right: 10px;
 }

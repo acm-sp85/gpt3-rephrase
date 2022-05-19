@@ -77,9 +77,13 @@ export default function Home() {
               Say it!
             </button>
           </form>
-          <div style={{ textAlign: 'center', marginTop: '15px' }}>
-            <button onClick={clearResults}>Clear Results</button>
-          </div>
+          {entries.length >= 1 ? (
+            <div style={{ textAlign: 'center', marginTop: '15px' }}>
+              <button onClick={clearResults}>Clear Results</button>
+            </div>
+          ) : (
+            <></>
+          )}
         </div>
         <ul className={styles.grid}>
           {entries.map((entry, index) => {
@@ -99,7 +103,7 @@ export default function Home() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by
+          by
           <h3>Alex Contell</h3>
         </a>
       </footer>
